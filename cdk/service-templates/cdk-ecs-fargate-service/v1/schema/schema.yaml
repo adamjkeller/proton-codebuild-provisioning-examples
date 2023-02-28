@@ -2,6 +2,7 @@ schema:
   format:
     openapi: "3.0.0"
   service_input_type: "ECSFargateSvcInputs"
+  pipeline_input_type: "PipelineInputs"
   types:
     ECSFargateSvcInputs:
       type: object
@@ -58,3 +59,14 @@ schema:
             - "ENV_VAR2=TEST2"
           items:
             type: string
+    PipelineInputs:
+      type: object
+      description: "Pipeline input properties"
+      properties:
+        dockerfile:
+          title: "Dockerfile"
+          type: string
+          description: "The location of the Dockerfile to build"
+          default: "Dockerfile"
+          minLength: 1
+          maxLength: 100
