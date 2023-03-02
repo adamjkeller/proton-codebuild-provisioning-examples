@@ -6,6 +6,6 @@ infrastructure:
         runtimes:
           nodejs: 16
         provision:
-          - aws s3 ls
+          - cat proton-inputs.json
         deprovision:
           - aws s3 ls
