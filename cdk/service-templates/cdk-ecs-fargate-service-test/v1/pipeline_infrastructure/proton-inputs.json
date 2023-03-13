@@ -1,0 +1,43 @@
+{
+  "pipeline": {
+    "inputs": {
+      "dockerfile": "Dockerfile",
+      "gitRepo": "https://github.com/adamjkeller/ecs-cdk-wikipedia-api",
+      "buildBranch": "main",
+      "repoProvider": "github"
+    }
+  },
+  "service": {
+    "name": "adamtest",
+    "repository_connection_arn": "arn:aws:codestar-connections:us-west-2:696393176379:connection/9f0b708b-f105-4ef5-808c-19282e81cc4c",
+    "repository_id": "adamjkeller/ecs-cdk-wikipedia-api",
+    "branch_name": "proton"
+  },
+  "service_instances": [
+    {
+      "name": "adamtest2",
+      "inputs": {
+        "port": 8080,
+        "desired_count": 1,
+        "task_size": "small",
+        "image": "public.ecr.aws/nginx/nginx:stable",
+        "load_balanced": false,
+        "load_balanced_public": false,
+        "envType": "dev"
+      },
+      "outputs": { "ServiceDiscoveryName": "undefined.ecs-cdk-demo.dev" },
+      "environment": {
+        "account_id": "696393176379",
+        "name": "cdk-ecs-cluster-env",
+        "outputs": {
+          "ECSClusterArn": "arn:aws:ecs:us-west-2:696393176379:cluster/cdk-ecs-cluster-env",
+          "ECSClusterSDNamespace": "ecs-cdk-demo.dev",
+          "SharedSecGrp": "sg-08be3cd143a5b87e0",
+          "ECSClusterSecGrps": "[]",
+          "VPCId": "vpc-0287059029960c111",
+          "ECSClusterName": "cdk-ecs-cluster-env"
+        }
+      }
+    }
+  ]
+}
