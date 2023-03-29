@@ -41,7 +41,9 @@ export class ContainerImageBuildPipeline extends Stack {
     } else if (repoProvider.toLowerCase() === "github") {
       sourceAction = new codepipeline_actions.GitHubSourceAction({
         actionName: "GitHubSource",
-        oauthToken: SecretValue.secretsManager("my-github-token"),
+        oauthToken: SecretValue.secretsManager("proton/github-token", {
+          jsonField: "token",
+        }),
         output: sourceOutput,
         owner: pipelineInputs.githubOwner,
         repo: pipelineInputs.gitRepo,
@@ -52,7 +54,6 @@ export class ContainerImageBuildPipeline extends Stack {
     }
 
     const ecrRepo = new ecr.Repository(this, "ECRRepo", {
-      imageScanOnPush: true,
       removalPolicy: RemovalPolicy.DESTROY,
     });
 
